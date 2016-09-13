@@ -42,32 +42,45 @@
 
   <!--Templates-->
   <pre class="template" id="default-specs">
-  describe('panda',function(){
-  it('is happy',function(){
+describe('Describe the panda',function(){
+  it('The panda should be happy',function(){
     expect(panda).toBe('happy');
+  });
+    it('The panda should has 3 panditas',function(){
+      expect(Panda.count_panditas()).toBe(3);
+  });
+});
+
+describe('Describe the Zoo',function(){
+    it('The zoo should be closed at day',function(){
+    hour = 9
+    expect(Zoo.open(hour)).toBe(true);
   });
 });
   </pre>
+  
   <pre class="template" id="default-src">
-    panda = 'sad';
+    panda = 'happy';
+
+var Panda = {
+  count_panditas: function() {
+    return 2-1
+  }
+};
+
+
+var Zoo = {
+  open: function(hour) {
+    if (hour>=4 && hour<=18){ 
+      return true;
+    }else{
+      return false;
+    }
+  }
+};
   </pre>
 
   <script type="text/html" class="template sandbox">
     <iframe id="sandbox" src="/sandbox"></iframe>
   </script>
-  <script type="text/html" class="template loading">
-    <div class="load-spin"><img src="img/ajax-loader.gif"></img></div>
-  </script>
 
-
-  <script type="text/javascript">
-    // var _gaq = _gaq || [];
-    // _gaq.push(['_setAccount', 'UA-19328582-2']);
-    // _gaq.push(['_trackPageview']);
-    //
-    // (function() {
-    //   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    //   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    //   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    // })();
-  </script>

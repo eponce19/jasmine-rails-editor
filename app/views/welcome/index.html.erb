@@ -1,0 +1,73 @@
+<%= javascript_include_tag 'underscore-min.js' %>
+<%= javascript_include_tag 'coffee-script.js' %>
+<%= javascript_include_tag 'ace/ace-uncompressed.js' %>
+<%= javascript_include_tag 'ace/mode-coffee.js' %>
+<%= javascript_include_tag 'ace/mode-javascript.js' %>
+<%= javascript_include_tag 'js2coffee.min.js' %>
+<%= javascript_include_tag 'try-it.js' %>
+
+  <div class="body-wrap">
+    <div class="head-wrap">
+      <div class="head-top-wrap">
+        <div class="header">
+          <a class="try-it big button">Test Code!</a>
+        </div>
+      </div>
+      <div class="flash hidden"></div>
+      </div>
+      <div class="content-wrap">
+        <div class="meta">
+        <div class="source-wrap">
+          <div id="spec-editor-wrapper" class="editor-wrapper vertical">
+            <label for="specs">specs</label>
+            <span class="runner-notice"></span>
+                  <div id="specs" class="editor vertical source"></div>
+          </div>
+
+          <div id="source-editor-wrapper" class="editor-wrapper vertical">
+        	<label for="src">source</label>
+                  <div id="src" class="editor vertical source"></div>
+          </div>
+        </div>
+        <div class="runner-wrap">
+          <div class="label">results</div>
+          <div class="spec-runner">
+            <div class="hint">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <!--Templates-->
+  <pre class="template" id="default-specs">
+  describe('panda',function(){
+  it('is happy',function(){
+    expect(panda).toBe('happy');
+  });
+});
+  </pre>
+  <pre class="template" id="default-src">
+    panda = 'sad';
+  </pre>
+
+  <script type="text/html" class="template sandbox">
+    <iframe id="sandbox" src="/sandbox"></iframe>
+  </script>
+  <script type="text/html" class="template loading">
+    <div class="load-spin"><img src="img/ajax-loader.gif"></img></div>
+  </script>
+
+
+  <script type="text/javascript">
+    // var _gaq = _gaq || [];
+    // _gaq.push(['_setAccount', 'UA-19328582-2']);
+    // _gaq.push(['_trackPageview']);
+    //
+    // (function() {
+    //   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    //   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    //   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    // })();
+  </script>

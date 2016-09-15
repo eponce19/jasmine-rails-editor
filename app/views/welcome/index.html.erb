@@ -1,8 +1,6 @@
+
 <%= javascript_include_tag 'underscore-min.js' %>
 <%= javascript_include_tag 'coffee-script.js' %>
-<%= javascript_include_tag 'ace/ace-uncompressed.js' %>
-<%= javascript_include_tag 'ace/mode-coffee.js' %>
-<%= javascript_include_tag 'ace/mode-javascript.js' %>
 <%= javascript_include_tag 'js2coffee.min.js' %>
 <%= javascript_include_tag 'try-it.js' %>
 
@@ -10,77 +8,47 @@
     <div class="head-wrap">
       <div class="head-top-wrap">
         <div class="header">
-          <a class="try-it big button">Test Code!</a>
+          <a class="try-it big button"  onclick="submit_code();">Test Code!</a>
         </div>
+
       </div>
       <div class="flash hidden"></div>
       </div>
       <div class="content-wrap">
         <div class="meta">
         <div class="source-wrap">
-          <div id="spec-editor-wrapper" class="editor-wrapper vertical">
-            <label for="specs">specs</label>
-            <span class="runner-notice"></span>
-                  <div id="specs" class="editor vertical source"></div>
-          </div>
-
-          <div id="source-editor-wrapper" class="editor-wrapper vertical">
-        	<label for="src">source</label>
-                  <div id="src" class="editor vertical source"></div>
-          </div>
+          <textarea id="js_editor" name="js_editor" ></textarea>
         </div>
         <div class="runner-wrap">
           <div class="label">results</div>
           <div class="spec-runner">
             <div class="hint">
-              
+
             </div>
           </div>
         </div>
       </div>
   </div>
 
-  <!--Templates-->
-  <pre class="template" id="default-specs">
-describe('Describe the panda',function(){
-  it('The panda should be happy',function(){
-    expect(panda).toBe('happy');
-  });
-    it('The panda should has 3 panditas',function(){
-      expect(Panda.count_panditas()).toBe(3);
-  });
-});
+  <script>
+    var js_editor = CodeMirror.fromTextArea(document.getElementById("js_editor"), {
+      lineNumbers: true,
+      mode:  "xml"
+    });
+  </script>
 
-describe('Describe the Zoo',function(){
-    it('The zoo should be closed at day',function(){
-    hour = 9
-    expect(Zoo.open(hour)).toBe(true);
-  });
-});
-  </pre>
-  
-  <pre class="template" id="default-src">
-    panda = 'happy';
+  <script type="text/javascript">
+    var specText;
+    var codeText;
 
-var Panda = {
-  count_panditas: function() {
-    return 2-1
-  }
-};
+    function submit_code()
+      {
+        specText = <%= raw @specText.to_json %>;
+        codeText = js_editor.getValue();
+      }
+  </script>
 
-
-var Zoo = {
-  open: function(hour) {
-    if (hour>=4 && hour<=18){ 
-      return true;
-    }else{
-      return false;
-    }
-  }
-};
-  </pre>
 
   <script type="text/html" class="template sandbox">
     <iframe id="sandbox" src="/sandbox"></iframe>
   </script>
-

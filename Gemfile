@@ -29,6 +29,7 @@ gem 'httparty', '~>0.8.1'
 
 gem 'shotgun'
 #gem 'heroku'
+gem  'codemirror-rails'
 
 gem 'jasmine-headless-webkit'
 gem 'guard-jasmine-headless-webkit'

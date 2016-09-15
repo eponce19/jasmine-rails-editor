@@ -12,4 +12,5 @@
 //
 //= require jquery
 //= require turbolinks
+//= require codemirror
 //= require_tree .

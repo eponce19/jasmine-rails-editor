@@ -19,14 +19,24 @@
         body: $('.spec-runner')[0]
       }));
       self.jasmine.getEnv().addReporter(new StylishReporter());
-      editors.each(function(editor) {
-        self.execute(editor);
-      });
+        // execute jasmine spec
+        self.execute(specText);
+
+        // execute user code
+        //codeText = "panda = 'happy';"
+        console.log('tryit'+codeText);
+        self.execute(codeText);
+
       self.jasmine.getEnv().execute();
     };
     self.execute = function(editor) {
-      var script = editor.getSession().getValue();
-      localStorage[editor.name] = script;
+      //get text of editor and store in localStorage of client
+      console.log("execute");
+      //console.log(specText);
+      //var script = editor.getSession().getValue();
+      console.log(editor);
+      var script = editor;
+      // localStorage[editor.name] = script;
       try {
         self.eval(script);
       } catch(javaScriptError) {
@@ -61,82 +71,6 @@
     return self;
   };
 
-  window.templates = {
-    stillDefault: function(editor) {
-      return this.getDefault(editor.name) === editor.getSession().getValue();
-    },
-    getDefault: function(name) {
-      return $.trim($('#default-'+name).text());
-    },
-    renderDefault: function(name) {
-      var script = this.getDefault(name);
-      if((localStorage[name] && script !== localStorage[name])) {
-        $('.clear-saved').show().css('display','inline-block');
-      }
-      editors.get(name).getSession().setValue(localStorage[name] || script);
-    },
-    init: function() {
-      _(editors.names).each(function(name) {
-        templates.renderDefault(name);
-      });
-    },
-    goCoffee: function() {
-      editors.setMode('coffee');
-      editors.each(function(editor) {
-        var coffee = Js2coffee.build(editor.getSession().getValue());
-        editor.getSession().setValue(coffee);
-      });
-    },
-    goJavaScript: function() {
-      editors.setMode('javascript');
-      editors.each(function(editor) {
-        var js = CoffeeScript.compile(editor.getSession().getValue(), { bare: "on" });
-        editor.getSession().setValue(js);
-      });
-    }
-  };
-
-  $.fn.codeBox = function() {
-    var $this = $(this);
-    var editor = ace.edit($this.attr('id'));
-    editor.name = $this.attr('id');
-    editor.setTheme("ace/theme/textmate");
-    editor.getSession().setTabSize(2);
-    editor.getSession().setUseSoftTabs(true);
-    editor.renderer.setShowPrintMargin(false);
-    editor.switchMode = function(name) {
-      localStorage['editorMode'] = name;
-      $('#mode-select').val(name);
-      var mode = require("ace/mode/"+name).Mode;
-      editor.getSession().setMode(new mode());
-    };
-    editor.switchMode(localStorage['editorMode'] || 'javascript');
-    $this.data('editor',editor);
-    return $this;
-  };
-
-  var editors = {
-    names: ['specs','src'],
-    get: function(name) {
-      return $('#'+name).data('editor');
-    },
-    getMode: function() {
-      return $('#mode-select').val();
-    },
-    setMode: function(name) {
-      $('#mode-select').val(name).trigger('change');
-    },
-    each: function(f) {
-      return _(editors.names).each(function(name,i) {
-        f(editors.get(name),i);
-      });
-    },
-    all: function(f) {
-      return _(editors.names).all(function(name,i) {
-        return f(editors.get(name),i);
-      });
-    }
-  };
 
   //Eventy stuff
   $('html, body').add(document.body).keydown(function(e){
@@ -228,10 +162,7 @@
 
   if(!window.runningTryJasmineSpecs) {
     $(document).ready(function(){
-      $('#specs').codeBox();
-      $('#src').codeBox();
-      templates.init();
-      arrangeEditors(localStorage['verticalSplit'] === "false" ? false : true);
+
     });
   }
 })(jQuery);
